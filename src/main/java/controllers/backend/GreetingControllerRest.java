@@ -1,4 +1,4 @@
-package controllers;
+package controllers.backend;
 
 import model.Greeting;
 import org.springframework.web.bind.annotation.RequestMapping;
