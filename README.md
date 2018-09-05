@@ -1,5 +1,5 @@
 # SpringProjectVM
-This is a application that can be run in a VM via vagrant program.
+This is an application that can be run in a VM via vagrant program.
 <h3> How to switch on VM</h3>
 <code>
   vagrant up
