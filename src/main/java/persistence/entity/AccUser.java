@@ -86,7 +86,8 @@ public class AccUser {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(accUserId)
+        return new HashCodeBuilder(17, 31)
+                .append(accUserId)
                 .append(userMail)
                 .append(userPass)
                 .append(accountsType).build();

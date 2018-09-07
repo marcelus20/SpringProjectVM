@@ -1,5 +1,7 @@
 package persistence.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -116,18 +118,25 @@ public class AccountType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountType that = (AccountType) o;
-        return Objects.equals(accTypeId, that.accTypeId) &&
-                Objects.equals(accUser, that.accUser) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(closingDay, that.closingDay) &&
-                Objects.equals(accName, that.accName) &&
-                Objects.equals(balances, that.balances) &&
-                Objects.equals(items, that.items);
+        return new EqualsBuilder().append(accTypeId, that.accTypeId)
+                .append(accUser, that.accUser)
+                .append(description, that.description)
+                .append(closingDay, that.closingDay)
+                .append(accName, that.accName)
+                .append(balances, that.balances)
+                .append(items, that.items).build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accTypeId, accUser, description, closingDay, accName, balances, items);
+        return new HashCodeBuilder(17,31)
+                .append(accTypeId)
+                .append(accUser)
+                .append(description)
+                .append(closingDay)
+                .append(accName)
+                .append(balances)
+                .append(items).build();
     }
 
     @Override
