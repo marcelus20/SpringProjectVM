@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "accounttype")
@@ -30,10 +31,10 @@ public class AccountType {
     private String accName;
 
     @OneToMany(mappedBy = "accountType", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<Balance> balances;
+    private Set<Balance> balances;
 
     @OneToMany(mappedBy = "accountType", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<Item> items;
+    private Set<Item> items;
 
 
 
@@ -42,8 +43,8 @@ public class AccountType {
 
     public AccountType(
             String accTypeId, AccUser accUser, String description,
-            String closingDay, String accName, List<Balance> balances,
-            List<Item> items
+            String closingDay, String accName, Set<Balance> balances,
+            Set<Item> items
     ) {
         this.accTypeId = accTypeId;
         this.accUser = accUser;
@@ -94,19 +95,19 @@ public class AccountType {
         this.accName = accName;
     }
 
-    public List<Balance> getBalances() {
+    public Set<Balance> getBalances() {
         return balances;
     }
 
-    public void setBalances(List<Balance> balances) {
+    public void setBalances(Set<Balance> balances) {
         this.balances = balances;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 
@@ -133,7 +134,6 @@ public class AccountType {
     public String toString() {
         return "AccountType{" +
                 "accTypeId='" + accTypeId + '\'' +
-                ", accUser=" + accUser +
                 ", description='" + description + '\'' +
                 ", closingDay='" + closingDay + '\'' +
                 ", accName='" + accName + '\'' +

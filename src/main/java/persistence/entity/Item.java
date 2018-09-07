@@ -116,7 +116,6 @@ public class Item {
         return "Item{" +
                 "itemId='" + itemId + '\'' +
                 ", transactionType=" + transactionType +
-                ", accountType=" + accountType +
                 ", description='" + description + '\'' +
                 ", itemValue=" + itemValue +
                 ", purchaseDate=" + purchaseDate +
