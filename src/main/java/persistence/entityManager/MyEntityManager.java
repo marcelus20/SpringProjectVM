@@ -10,43 +10,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.function.Function;
 
-@Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class MyEntityManager {
-    public final static String PU = "org.hibernate.tutorial.jpa";
-    private final EntityManagerFactory emf;
 
-    public MyEntityManager() {
-        this.emf =  Persistence.createEntityManagerFactory(PU);
-    }
+public interface MyEntityManager {
 
-    public <A > A execute(Function<EntityManager, A> f){
-        final EntityManager em = emf.createEntityManager();
-        final EntityTransaction et = em.getTransaction();
 
-        et.begin();
+    public <A > A execute(Function<EntityManager, A> f);
 
-        A res = f.apply(em);
-
-        et.commit();
-
-        em.close();
-        emf.close();
-
-        return res;
-    }
-
-    public void  insertOrUpdate(Function<EntityManager, Void> f){
-        final EntityManager em = emf.createEntityManager();
-        final EntityTransaction et = em.getTransaction();
-
-        et.begin();
-
-        f.apply(em);
-
-        et.commit();
-
-        em.close();
-        emf.close();
-    }
+    public void  insertOrUpdate(Function<EntityManager, Void> f);
 }
