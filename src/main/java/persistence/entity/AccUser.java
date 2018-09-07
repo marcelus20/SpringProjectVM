@@ -3,8 +3,7 @@ package persistence.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "accuser")
@@ -18,15 +17,23 @@ public class AccUser {
     @Column(name = "usermail")
     private String userMail;
 
-    @OneToMany(mappedBy = "accUser", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private List<AccountType> accountsType;
+    @Column(name = "userpass")
+    private String userPass;
+
+    @OneToMany(mappedBy = "accUser", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Set<AccountType> accountsType;
 
     public AccUser() {
+        accUserId = null;
+        userMail = "";
+        userPass = "";
+        accountsType = new HashSet<>();
     }
 
-    public AccUser(String accUserId, String userMail, List<AccountType> accountsType) {
+    public AccUser(String accUserId, String userMail, String userPass, Set<AccountType> accountsType) {
         this.accUserId = accUserId;
         this.userMail = userMail;
+        this.userPass = userPass;
         this.accountsType = accountsType;
     }
 
@@ -38,6 +45,14 @@ public class AccUser {
         this.accUserId = accUserId;
     }
 
+    public String getUserPass() {
+        return userPass;
+    }
+
+    public void setUserPass(String userPass) {
+        this.userPass = userPass;
+    }
+
     public String getUserMail() {
         return userMail;
     }
@@ -46,13 +61,14 @@ public class AccUser {
         this.userMail = userMail;
     }
 
-    public List<AccountType> getAccountsType() {
+    public Set<AccountType> getAccountsType() {
         return accountsType;
     }
 
-    public void setAccountsType(List<AccountType> accountsType) {
+    public void setAccountsType(Set<AccountType> accountsType) {
         this.accountsType = accountsType;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -61,12 +77,13 @@ public class AccUser {
         AccUser accUser = (AccUser) o;
         return Objects.equals(accUserId, accUser.accUserId) &&
                 Objects.equals(userMail, accUser.userMail) &&
+                Objects.equals(userPass, accUser.userPass) &&
                 Objects.equals(accountsType, accUser.accountsType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accUserId, userMail, accountsType);
+        return Objects.hash(accUserId, userMail, userPass, accountsType);
     }
 
     @Override
@@ -74,7 +91,7 @@ public class AccUser {
         return "AccUser{" +
                 "accUserId='" + accUserId + '\'' +
                 ", userMail='" + userMail + '\'' +
-                ", accountsType=" + accountsType +
+                ", userPass='" + userPass + '\'' +
                 '}';
     }
 }
