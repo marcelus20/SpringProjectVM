@@ -1,5 +1,7 @@
 package persistence.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -75,15 +77,19 @@ public class AccUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccUser accUser = (AccUser) o;
-        return Objects.equals(accUserId, accUser.accUserId) &&
-                Objects.equals(userMail, accUser.userMail) &&
-                Objects.equals(userPass, accUser.userPass) &&
-                Objects.equals(accountsType, accUser.accountsType);
+
+        return new EqualsBuilder().append(accUserId, accUser.accUserId)
+                .append(userMail, accUser.userMail)
+                .append(userPass, accUser.userPass)
+                .append(accountsType, accUser.accountsType).build();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accUserId, userMail, userPass, accountsType);
+        return new HashCodeBuilder().append(accUserId)
+                .append(userMail)
+                .append(userPass)
+                .append(accountsType).build();
     }
 
     @Override
